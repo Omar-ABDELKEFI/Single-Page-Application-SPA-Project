@@ -1,74 +1,51 @@
-import React, {Component} from 'react';
-import {Media} from "reactstrap";
+import React,{Component} from "react";
+import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
+
+
 
 class Menu extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            dishes: [
-                {
-                    id: 0,
-                    name: 'Uthappizza',
-                    image: 'assets/uthappizza.png',
-                    category: 'mains',
-                    label: 'Hot',
-                    price: '4.99',
-                    description: 'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.'
-                },
-                {
-                    id: 1,
-                    name: 'Zucchipakoda',
-                    image: 'assets/zucchipakoda.png',
-                    category: 'appetizer',
-                    label: '',
-                    price: '1.99',
-                    description: 'Deep fried Zucchini coated with mildly spiced Chickpea flour batter accompanied with a sweet-tangy tamarind sauce'
-                },
-                {
-                    id: 2,
-                    name: 'Vadonut',
-                    image: 'assets/vadonut.png',
-                    category: 'appetizer',
-                    label: 'New',
-                    price: '1.99',
-                    description: 'A quintessential ConFusion experience, is it a vada or is it a donut?'
-                },
-                {
-                    id: 3,
-                    name: 'ElaiCheese Cake',
-                    image: 'assets/elaicheesecake.png',
-                    category: 'dessert',
-                    label: '',
-                    price: '2.99',
-                    description: 'A delectable, semi-sweet New York Style Cheese Cake, with Graham cracker crust and spiced with Indian cardamoms'
-                }
-            ],
-        };
+            selectedDish: null,
+            selectedComments:null
+        }
+
+
+    }
+
+    onDishSelect(dish) {
+        this.setState({ selectedDish: dish,
+            selectedComments:dish.comments});
+
+    }
+
+    onDishSelect2() {
+       console.log(`this${this}`)
+
+
     }
 
     render() {
-        const menu =
-            this.state.dishes.map((dish) => {
-                return (
-                    <div key={dish.id} className={"col-12 mt-5"}>
-                        <Media tag={"li"} >
-                            <Media left  middle className="align-self-center">
-                                <Media  object src={dish.image} alt={dish.name}/>
-                            </Media>
-                            <Media  body className={"ml-5 align-self-center"} >
-                                <Media heading>{dish.name}</Media>
-                                <p className={"mb-0"}>{dish.description}</p>
-                            </Media>
-                        </Media>
-                    </div>
-                )
-            })
+
+        const menu = this.props.dishes.map((dish) => {
+            return (
+                <div  className="col-12 col-md-5 m-1" key={dish.id}>
+                    <Card onClick={() => this.props.onClick(dish.id)}>
+                        <CardImg  src={dish.image} alt={dish.name} />
+                        <CardImgOverlay>
+                            <CardTitle>{dish.name}</CardTitle>
+                        </CardImgOverlay>
+                    </Card>
+                </div>
+            );
+        });
+
         return (
-            <div className={"container"}>
-                <div className={"row"}>
-                <Media list>
+            <div className="container">
+                <div className="row">
                     {menu}
-                </Media>
                 </div>
             </div>
         );
