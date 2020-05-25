@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponent';
 import DishDetail from './DishdetailComponent';
 import { DISHES } from '../shared/dishes';
@@ -11,6 +10,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
+import About from './AboutComponent.js'
 
 class Main extends Component {
 
@@ -40,7 +40,6 @@ class Main extends Component {
         );
     };
 
-
     render() {
 
         return (
@@ -48,6 +47,7 @@ class Main extends Component {
                 <Header/>
                 <Switch>
                     <Route path='/home' component={this.HomePage} />
+                    <Route path={'/aboutus'} component={()=><About leaders={this.state.leaders}/>}/>
                     <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
                     <Route path='/menu/:dishId' component={this.DishWithId} />
                     <Route exact path='/contactus' component={Contact}/>
